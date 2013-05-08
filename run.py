@@ -55,14 +55,13 @@ __prog__ = "coinroll.it automated gambling script"
 __scriptname__ = "run.py"
 __author__ = "[mad]Berry"
 __date__ = "$May 07, 2013 17:10:45 PM$"
-__version__ = "1.0.01"
+__version__ = "1.0.02"
 
 class Error(Exception):
     pass
 
 def pause(n, post=False):
-	import time
-	import sys
+	import time, sys
 	if post:
 		print "Start : %s" % time.ctime()
 	while n != 0:
@@ -111,9 +110,6 @@ def firstrun():
 		file.close() 
 
 def main():
-	#check balance
-	#result = call('getbets', user=user, password=password, offset=60000)
-	#result = call('querybet', id='515e8d110c88')
 	resultloss = call('getbalance', user=user, password=password)  ##get balance from api
 	initial_loss = resultloss['bets'] - resultloss['wins']
 	initial_wins = resultloss['wins']
@@ -128,7 +124,7 @@ def main():
 				print 'Lost to much exiting'
 				break;
 			else:
-				print "Won! \nplacing another bet I will stop after {0} losses".format(max_loss)
+				print "Won! \nPlacing another bet I will stop after {0} losses".format(max_loss)
 				result = call('bet',user=user, password=password, lessthan=less_than,amount=min_bet)
 			pause(rate_limit) 
 	return 0
