@@ -27,13 +27,14 @@
 #ltc: Lb5TUyhdUtqsExLmiyqCLAiBZUrs8mEYze
 # Thanks.  
 
-import urllib2,urllib,os,simplejson
+import urllib2,urllib,os,simplejson, random
 
 # Variables used to run the script
 
 user='' #userid from the site
 password = '' #password from the site
-less_than = 55000 #Bet less than "offset" 
+less_than_min = 50000 #64000 #60000 #55000 #Bet less than "offset" 
+less_than_max = 64000
 '''
 60000 = 91.6%    odds wins     1.081x
 55000 = 83.9%    odds wins     1.179x
@@ -44,9 +45,9 @@ less_than = 55000 #Bet less than "offset"
  1000 = 1.53%    odds wins    64.88x
     1 = 0.00153% odds wins 64880x
 '''
-#max_bet = 4000 # Maximum bet 4000=0.00004 || Not used yet
-min_bet = 1000 # Minimum bet can't be lower then 1000=0.00001
-max_loss = 2 # stop after X losses
+max_bet = 5000 # Maximum bet 4000=0.00004 || Not used yet
+min_bet = 2500 # Minimum bet can't be lower then 1000=0.00001
+max_loss = 50 # stop after X losses
 rate_limit = 0 #Rate limit in seconds, currently 1 bet per 10 sec.
 
 #-------Any changes below this line might break the script------
@@ -55,13 +56,14 @@ __prog__ = "coinroll.it automated gambling script"
 __scriptname__ = "run.py"
 __author__ = "[mad]Berry"
 __date__ = "$May 07, 2013 17:10:45 PM$"
-__version__ = "1.0.02"
+__version__ = "1.0.03"
 
 class Error(Exception):
     pass
 
 def pause(n, post=False):
-	import time, sys
+	import time
+	import sys
 	if post:
 		print "Start : %s" % time.ctime()
 	while n != 0:
@@ -113,6 +115,8 @@ def main():
 	resultloss = call('getbalance', user=user, password=password)  ##get balance from api
 	initial_loss = resultloss['bets'] - resultloss['wins']
 	initial_wins = resultloss['wins']
+	less_than = random.randint(less_than_min,less_than_max)
+	bet = random.randint(min_bet,max_bet) 
 	while True:  #start bet loop
 			resultloss = call('getbalance', user=user, password=password)
 			losses = resultloss['bets'] - resultloss['wins']
@@ -124,9 +128,14 @@ def main():
 				print 'Lost to much exiting'
 				break;
 			else:
-				print "Won! \nPlacing another bet I will stop after {0} losses".format(max_loss)
-				result = call('bet',user=user, password=password, lessthan=less_than,amount=min_bet)
-			pause(rate_limit) 
+				result = call('bet',user=user, password=password, lessthan=less_than,amount=bet)
+				if (result['win'] == True):
+					print "Won! With {2} at {1}  \nPlacing another bet I will stop after {0} losses".format(max_loss,less_than, bet)
+				else:
+					print "LOST! With {2} at {1}  \nPlacing another bet I will stop after {0} losses".format(max_loss,less_than, bet)
+				less_than = random.randint(less_than_min,less_than_max)
+				bet = random.randint(min_bet,max_bet) 
+			pause(rate_limit)			
 	return 0
 
 if __name__ == '__main__':
@@ -140,4 +149,3 @@ if __name__ == '__main__':
 		firstrun()
 	else:
 		main()
-

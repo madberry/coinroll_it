@@ -1,7 +1,7 @@
 coinroll_it
 ===========
 
-Automated gambling script for coinroll.it
+Automated gambling script for http://coinroll.it
 
 Change user and password. Set max_loss and let em roll.
 
@@ -13,3 +13,6 @@ If this was in anyway useful to you then please consider donating:
 
 btc: 1Q2QDC78uaGgkm4r3G5YzZSriPv7KMUuQU
 ltc: Lb5TUyhdUtqsExLmiyqCLAiBZUrs8mEYze
+
+bitcointalk thread:
+https://bitcointalk.org/index.php?topic=198727
