@@ -47,7 +47,6 @@ less_than = 55000 #Bet less than "offset"
 #max_bet = 4000 # Maximum bet 4000=0.00004 || Not used yet
 min_bet = 1000 # Minimum bet can't be lower then 1000=0.00001
 max_loss = 2 # stop after X losses
-max_wins = 10
 rate_limit = 0 #Rate limit in seconds, currently 1 bet per 10 sec.
 
 #-------Any changes below this line might break the script------
@@ -96,7 +95,7 @@ def call(api_url, **kwargs):
 		exit(1)
 		
 def firstrun():
-	print 'here'
+	print 'Loading first run procedures'
 	if os.path.isfile('cred.txt'): 
 		print 'Success we already have credentials'
 		file = open('cred.txt','r')
@@ -120,12 +119,6 @@ def main():
 	initial_wins = resultloss['wins']
 	while True:  #start bet loop
 			resultloss = call('getbalance', user=user, password=password)
-			wins = initial_wins+max_wins
-			if ( resultloss['wins'] == wins):
-				print 'won', max_wins, 'exiting'
-				exit(0)
-			else:
-				pass
 			losses = resultloss['bets'] - resultloss['wins']
 			if (losses >= max_loss):
 				max_lost = initial_loss+max_loss
@@ -135,7 +128,7 @@ def main():
 				print 'Lost to much exiting'
 				break;
 			else:
-				print 'Lost only', losses, 'which is less than', losses,'-',max_lost, '\nplacing another bet I will stop after', max_lost, 'total lost'
+				print "Won! \nplacing another bet I will stop after {0} losses".format(max_loss)
 				result = call('bet',user=user, password=password, lessthan=less_than,amount=min_bet)
 			pause(rate_limit) 
 	return 0
