@@ -1,7 +1,7 @@
 coinroll_it
 ===========
 
-Automated gambling script for coinroll.it
+Automated gambling script for http://coinroll.it
 
 Change user and password. Set max_loss and let em roll.
 
