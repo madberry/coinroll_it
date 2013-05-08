@@ -3,14 +3,11 @@ coinroll_it
 
 Automated gambling script for coinroll.it
 
-Running for the first time:
-
-change part1-3 and password, then run "python run.py -n".
-Deposit some coin to the address in your terminal, so the account on coinroll.it is saved to the MySQL.
-
-After the payment confirms set your limits and roll away.
+Change user and password. Set max_loss and let em roll.
 
 Enjoy.
+
+Thanks to grimd34th and any future contributors.
 
 If this was in anyway useful to you then please consider donating:
 
