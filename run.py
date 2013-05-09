@@ -62,8 +62,7 @@ class Error(Exception):
     pass
 
 def pause(n, post=False):
-	import time
-	import sys
+	import time, sys
 	if post:
 		print "Start : %s" % time.ctime()
 	while n != 0:
