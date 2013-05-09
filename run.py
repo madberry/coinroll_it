@@ -45,7 +45,7 @@ less_than_max = 64000
  1000 = 1.53%    odds wins    64.88x
     1 = 0.00153% odds wins 64880x
 '''
-max_bet = 5000 # Maximum bet 4000=0.00004 || Not used yet
+max_bet = 5000 # Maximum bet 4000=0.00004
 min_bet = 2500 # Minimum bet can't be lower then 1000=0.00001
 max_loss = 50 # stop after X losses
 rate_limit = 0 #Rate limit in seconds, currently 1 bet per 10 sec.
