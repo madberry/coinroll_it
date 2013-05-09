@@ -1,7 +1,7 @@
 coinroll_it
 ===========
 
-Automated gambling script for http://coinroll.it
+Automated gambling script for <a href="http://coinroll.it" target="_blank">coinroll.it</a>
 
 Change user and password. Set the variables and let em roll.
 
@@ -23,7 +23,7 @@ rate_limit = 0 #Rate limit in seconds Be a good guy and rate_limit your
 
 Enjoy.
 
-Thanks to @grimd34th and any future contributors.
+Thanks to <a href="https://github.com/grimd34th" target="_blank">grimd34th</a> and any future contributors.
 
 If this was in anyway useful to you then please consider donating:
 
@@ -31,4 +31,4 @@ btc: 1Q2QDC78uaGgkm4r3G5YzZSriPv7KMUuQU <br />
 ltc: Lb5TUyhdUtqsExLmiyqCLAiBZUrs8mEYze
 
 bitcointalk thread:
-https://bitcointalk.org/index.php?topic=198727
+<a href="https://bitcointalk.org/index.php?topic=198727" target="">https://bitcointalk.org/index.php?topic=198727</a>
