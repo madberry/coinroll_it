@@ -33,9 +33,10 @@ import urllib2,urllib,os,simplejson, random
 
 user='' #userid from the site
 password = '' #password from the site
-less_than_min = 50000 #64000 #60000 #55000 #Bet less than "offset" 
+less_than_min = 60000 #Bet less than "offset" 
 less_than_max = 64000
 '''
+64000 = 97.7%    odds wins     1.013x
 60000 = 91.6%    odds wins     1.081x
 55000 = 83.9%    odds wins     1.179x
 32768 = 50.0%    odds wins     1.98x
@@ -45,9 +46,9 @@ less_than_max = 64000
  1000 = 1.53%    odds wins    64.88x
     1 = 0.00153% odds wins 64880x
 '''
-max_bet = 5000 # Maximum bet 4000=0.00004 
-min_bet = 2500 # Minimum bet can't be lower then 1000=0.00001
-max_loss = 50 # stop after X losses
+max_bet = 20000 # Maximum bet 4000=0.00004 || Not used yet
+min_bet = 4500 # Minimum bet can't be lower then 1000=0.00001
+max_loss = 10000 # stop after X losses
 rate_limit = 0 #Rate limit in seconds, currently 1 bet per 10 sec.
 
 #-------Any changes below this line might break the script------
@@ -56,7 +57,7 @@ __prog__ = "coinroll.it automated gambling script"
 __scriptname__ = "run.py"
 __author__ = "[mad]Berry"
 __date__ = "$May 07, 2013 17:10:45 PM$"
-__version__ = "1.0.03"
+__version__ = "1.0.04"
 
 class Error(Exception):
     pass
@@ -119,8 +120,14 @@ def main():
 	while True:  #start bet loop
 			resultloss = call('getbalance', user=user, password=password)
 			losses = resultloss['bets'] - resultloss['wins']
+			if (resultloss['balance'] <= 0):
+				exit('Reached 3000000 time to quit')
+			elif (resultloss['balance'] >= 4000000):
+				exit('Reached 4500000 GOOD time to quit')
+			#print resultloss
 			if (losses >= max_loss):
 				max_lost = initial_loss+max_loss
+				#print max_lost
 			else:
 				max_lost = max_loss
 			if (losses == max_lost):
@@ -147,4 +154,7 @@ if __name__ == '__main__':
 	if options.new == True:
 		firstrun()
 	else:
-		main()
+		try:
+			main()
+		except KeyboardInterrupt:
+			exit("Bye Bye")
